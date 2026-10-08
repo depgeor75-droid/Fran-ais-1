@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Parler en classe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap">
+<style>
+:root{
+  --paper:#EBEFF6;
+  --sheet:#FFFFFF;
+  --ink:#1C2640;
+  --ink-soft:#5B6681;
+  --rule:#DFE6F1;
+  --rule-strong:#C3D0E4;
+  --margin:#E8A0AB;
+  --accent:#2646A6;
+  --accent-ink:#FFFFFF;
+  --f-a:#B4500C;
+  --f-s:#B82B3A;
+  --f-r:#0A7558;
+  --f-g:#7335AA;
+  --good:#0A7558;
+  --again:#B4500C;
+  --shadow:0 14px 34px -22px rgba(28,38,64,.55);
+  --serif:'Literata',Georgia,'Times New Roman',serif;
+  --sans:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#10162A;--sheet:#192137;--ink:#E6EBF5;--ink-soft:#9AA5BF;
+    --rule:#222C44;--rule-strong:#2E3A57;--margin:#6B3442;
+    --accent:#8FA7FF;--accent-ink:#0F1524;
+    --f-a:#F2A061;--f-s:#FF8590;--f-r:#53D3AA;--f-g:#C7A0F2;
+    --good:#53D3AA;--again:#F2A061;
+    --shadow:0 14px 34px -22px rgba(0,0,0,.8);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#10162A;--sheet:#192137;--ink:#E6EBF5;--ink-soft:#9AA5BF;
+  --rule:#222C44;--rule-strong:#2E3A57;--margin:#6B3442;
+  --accent:#8FA7FF;--accent-ink:#0F1524;
+  --f-a:#F2A061;--f-s:#FF8590;--f-r:#53D3AA;--f-g:#C7A0F2;
+  --good:#53D3AA;--again:#F2A061;
+  --shadow:0 14px 34px -22px rgba(0,0,0,.8);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.5}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:640px;margin:0 auto;padding:14px 18px 56px}
+.view{display:none}
+.view.active{display:block}
+
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:6px 0 4px}
+.title{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,8vw,2.6rem);line-height:1.05;letter-spacing:-.015em;margin:0}
+.sub{margin:8px 0 0;color:var(--ink-soft);max-width:36ch}
+h2{font-family:var(--serif);font-weight:600;font-size:1.3rem;line-height:1.3;margin:34px 0 8px}
+h3{font-family:var(--serif);font-weight:600;font-size:1.08rem;margin:24px 0 6px}
+p{margin:8px 0}
+.small{font-size:.9rem;color:var(--ink-soft)}
+.lead{color:var(--ink-soft);margin:4px 0 0}
+
+.icon-btn{flex:none;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--rule-strong);background:var(--sheet);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0}
+.icon-btn.small{width:40px;height:40px}
+
+/* Feuille de cahier (réglure Seyès) */
+.sheet{
+  position:relative;margin:16px 0 0;padding:.5rem 1.1rem 1.5rem 3.1rem;border-radius:4px;
+  background-color:var(--sheet);
+  background-image:
+    linear-gradient(90deg,transparent 2.2rem,var(--margin) 2.2rem,var(--margin) calc(2.2rem + 1.5px),transparent calc(2.2rem + 1.5px)),
+    repeating-linear-gradient(180deg,transparent 0 calc(2rem - 1px),var(--rule-strong) calc(2rem - 1px) 2rem),
+    repeating-linear-gradient(180deg,transparent 0 calc(.5rem - 1px),var(--rule) calc(.5rem - 1px) .5rem),
+    repeating-linear-gradient(90deg,transparent 0 calc(2rem - 1px),var(--rule) calc(2rem - 1px) 2rem);
+  box-shadow:var(--shadow);
+}
+.situ{margin:0;font-size:.9rem;line-height:2rem;color:var(--ink-soft)}
+.sentence{margin:0;font-family:var(--serif);font-size:1.45rem;line-height:2rem;font-weight:400;color:var(--ink)}
+@media (max-width:400px){.sentence{font-size:1.28rem}}
+.masked{color:var(--ink-soft);font-style:italic;font-size:1.1rem}
+
+.f-a{--fc:var(--f-a)}.f-s{--fc:var(--f-s)}.f-r{--fc:var(--f-r)}.f-g{--fc:var(--f-g)}
+mark.t{background:none;color:var(--fc);font-weight:600;text-decoration:underline;text-decoration-color:var(--fc);text-decoration-thickness:3px;text-underline-offset:.22em;text-decoration-skip-ink:none}
+.revealed mark.t{animation:ink .6s ease-out}
+@keyframes ink{from{color:var(--ink);text-decoration-color:transparent}}
+.blank{display:inline-block;width:var(--w);height:1.2em;border-bottom:3px dashed var(--fc);margin:0 .08em}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--fc);display:inline-block;flex:none}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:.9rem;font-weight:700;padding:5px 12px;border-radius:999px;border:1.5px solid var(--fc);color:var(--fc)}
+
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:16px}
+.btn{font:inherit;font-weight:700;min-height:48px;padding:0 18px;border-radius:14px;border:1.5px solid var(--rule-strong);background:var(--sheet);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;text-align:center}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.ink{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+.btn.big{min-height:58px;font-size:1.05rem}
+.btn.block{display:flex;width:100%;margin-top:18px}
+.btn.grow{flex:1}
+.btn.rec{border-color:var(--f-s);color:var(--f-s)}
+.btn.rec.on{background:var(--f-s);color:#fff}
+.btn.good{border-color:var(--good);color:var(--good)}
+.btn.again{border-color:var(--again);color:var(--again)}
+.btn.danger{border-color:var(--f-s);color:var(--f-s)}
+.btn.danger.armed{background:var(--f-s);color:#fff}
+.grade{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+body.speaking [data-act="play"] .ico{animation:pulse .9s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){body.speaking [data-act="play"] .ico,.revealed mark.t{animation:none}}
+
+.streak{font-weight:700}
+.prow{display:grid;grid-template-columns:1fr auto;gap:6px 12px;padding:12px 0;border-bottom:1px solid var(--rule-strong)}
+.pname{display:flex;align-items:center;gap:8px;font-weight:700}
+.pnum{color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.bar{grid-column:1/-1;display:flex;height:10px;border-radius:5px;background:var(--rule);overflow:hidden}
+.bar i{display:block;height:100%}
+.bar .m{background:var(--fc)}
+.bar .p{background:var(--fc);opacity:.35}
+.phint{grid-column:1/-1;font-size:.9rem;color:var(--ink-soft)}
+
+.card{font:inherit;color:var(--ink);text-align:left;width:100%;display:grid;gap:3px;padding:14px 16px;margin-top:10px;border-radius:12px;border:1.5px solid var(--rule-strong);background:var(--sheet);cursor:pointer}
+.card strong{font-family:var(--serif);font-size:1.1rem;font-weight:600}
+.card span{color:var(--ink-soft);font-size:.95rem}
+
+.note{background:var(--sheet);border-left:4px solid var(--again);padding:12px 14px;border-radius:4px;margin:14px 0 0;font-size:.95rem}
+
+.subtop{display:flex;align-items:center;gap:12px;margin:4px 0 6px}
+.subtitle{margin:0;font-weight:700}
+.stephead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:14px 0 10px}
+.steptitle{font-family:var(--serif);font-weight:600;font-size:1.55rem;line-height:1.2;margin:0}
+.count{margin:0;color:var(--ink-soft);font-size:.95rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.segs{display:flex;gap:4px}
+.seg{flex:1;height:6px;border-radius:3px;background:var(--rule-strong)}
+.seg.done{background:var(--accent)}
+.seg.cur{background:var(--accent);opacity:.45}
+.meta{margin-top:14px}
+.instr{margin:14px 0 0;color:var(--ink-soft)}
+.interlude{padding-top:18px}
+
+.fields{display:grid;gap:12px;margin:16px 0 0}
+@media (min-width:560px){#v-cont .fields{grid-template-columns:1fr 1fr}}
+.field{display:grid;gap:4px;font-size:.95rem}
+.field>span{color:var(--ink-soft)}
+select{font:inherit;min-height:46px;padding:0 12px;border-radius:10px;border:1.5px solid var(--rule-strong);background:var(--sheet);color:var(--ink);width:100%}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.check{display:flex;align-items:center;gap:10px;min-height:46px;cursor:pointer}
+.check input{width:22px;height:22px;accent-color:var(--accent)}
+.pause{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:18px 0 6px}
+.plabel{margin:0;font-weight:700}
+.pausebar{height:8px;border-radius:4px;background:var(--rule);overflow:hidden}
+.pausebar i{display:block;height:100%;width:0;background:var(--accent)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.fchip{font:inherit;font-size:.92rem;min-height:40px;padding:0 14px;border-radius:999px;border:1.5px solid var(--rule-strong);background:var(--sheet);color:var(--ink);display:inline-flex;align-items:center;gap:7px;cursor:pointer}
+.fchip[aria-pressed="true"]{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:.9rem;color:var(--ink-soft);margin:12px 0 0}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.st{width:12px;height:12px;border-radius:50%;border:2px solid var(--ink-soft);display:inline-block;flex:none}
+.st.prog{background:var(--again);border-color:var(--again)}
+.st.ok{background:var(--good);border-color:var(--good)}
+.row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;padding:12px 0;border-bottom:1px solid var(--rule-strong)}
+.row .st{margin-top:.55em}
+.rsent{margin:0;font-family:var(--serif);font-size:1.08rem;line-height:1.55}
+.rsent mark.t{text-decoration-thickness:2px}
+
+.toast-wrap{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;padding:0 16px calc(18px + env(safe-area-inset-bottom,0px));pointer-events:none}
+.toast{background:var(--ink);color:var(--sheet);padding:12px 16px;border-radius:12px;max-width:520px;box-shadow:var(--shadow)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section id="v-home" class="view active">
+    <header class="top">
+      <div>
+        <h1 class="title">Parler en classe</h1>
+        <p class="sub" id="h-sub"></p>
+      </div>
+      <button class="icon-btn" data-act="settings" aria-label="Réglages">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>
+      </button>
+    </header>
+    <div class="note" id="voice-note" hidden></div>
+
+    <div class="sheet">
+      <p class="situ">Phrase du jour</p>
+      <p class="sentence" id="daily"></p>
+    </div>
+    <div class="controls" id="daily-ctrl"></div>
+
+    <h2>Séance du jour</h2>
+    <p>Dix phrases, environ dix minutes : d'abord écouter et répéter, puis les dire de mémoire.</p>
+    <p class="streak" id="streak"></p>
+    <button class="btn ink block big" data-act="start">Commencer la séance</button>
+
+    <h2>Tes progrès</h2>
+    <p id="totals"></p>
+    <div id="prows"></div>
+    <p class="small">Une phrase est maîtrisée quand tu l'as dite sans faute, de mémoire, lors de trois séances différentes.</p>
+
+    <h2>Autres façons de pratiquer</h2>
+    <button class="card" data-act="cont"><strong>Écoute en continu</strong><span>Les phrases défilent avec une pause pour les répéter. Pratique en cuisine ou en rangeant.</span></button>
+    <button class="card" data-act="list"><strong>Toutes les phrases</strong><span>Parcourir les phrases par situation et les écouter une à une.</span></button>
+  </section>
+
+  <section id="v-session" class="view">
+    <div class="subtop">
+      <button class="icon-btn" data-act="home" aria-label="Quitter la séance"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <p class="subtitle">Séance du jour</p>
+    </div>
+    <div id="s-body"></div>
+  </section>
+
+  <section id="v-cont" class="view">
+    <div class="subtop">
+      <button class="icon-btn" data-act="home" aria-label="Retour à l'accueil"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <p class="subtitle">Écoute en continu</p>
+    </div>
+    <p class="lead">Après chaque phrase, une pause te laisse le temps de la répéter à voix haute.</p>
+    <div class="fields">
+      <label class="field"><span>Situation</span><select id="c-theme"></select></label>
+      <label class="field"><span>Point travaillé</span><select id="c-focus"></select></label>
+      <label class="field"><span>Chaque phrase est</span><select id="c-reps"><option value="1">lue une fois</option><option value="2" selected>lue deux fois</option></select></label>
+      <label class="check"><input type="checkbox" id="c-show" checked> Afficher le texte</label>
+    </div>
+    <div class="sheet"><p class="situ" id="c-situ"></p><p class="sentence" id="c-sent"></p></div>
+    <div class="pause"><p class="plabel" id="c-label">Prête ?</p><p class="count" id="c-count"></p></div>
+    <div class="pausebar"><i id="c-bar"></i></div>
+    <div class="controls">
+      <button class="btn" data-act="c-prev" aria-label="Phrase précédente">‹</button>
+      <button class="btn primary grow" data-act="c-toggle" id="c-toggle">Démarrer</button>
+      <button class="btn" data-act="c-next" aria-label="Phrase suivante">›</button>
+    </div>
+    <p class="small">Garde l'écran allumé : sur certains téléphones, la lecture s'arrête quand l'écran se verrouille.</p>
+  </section>
+
+  <section id="v-list" class="view">
+    <div class="subtop">
+      <button class="icon-btn" data-act="home" aria-label="Retour à l'accueil"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <p class="subtitle">Toutes les phrases</p>
+    </div>
+    <div class="fields"><label class="field"><span>Situation</span><select id="l-theme"></select></label></div>
+    <div class="chips" id="l-focus" role="group" aria-label="Point travaillé"></div>
+    <p class="legend"><span><i class="st"></i>nouvelle</span><span><i class="st prog"></i>en cours</span><span><i class="st ok"></i>maîtrisée</span></p>
+    <div id="l-rows"></div>
+  </section>
+
+  <section id="v-settings" class="view">
+    <div class="subtop">
+      <button class="icon-btn" data-act="home" aria-label="Retour à l'accueil"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <p class="subtitle">Réglages</p>
+    </div>
+    <div class="fields">
+      <label class="field"><span>Voix</span><select id="voice"></select></label>
+      <label class="field"><span>Vitesse de lecture : <b id="rate-val"></b></span><input type="range" id="rate" min="0.6" max="1.1" step="0.05"></label>
+    </div>
+    <div class="controls"><button class="btn" data-act="test">Tester la voix</button></div>
+    <p class="small">Les voix disponibles dépendent du téléphone ou de l'ordinateur. Choisis de préférence une voix française de France (code fr-FR) ou de Belgique (code fr-BE).</p>
+    <h2>Progression</h2>
+    <p class="small">La progression est enregistrée sur cet appareil, dans ce navigateur.</p>
+    <button class="btn danger" data-act="reset">Remettre la progression à zéro</button>
+  </section>
+
+</div>
+<div class="toast-wrap" aria-live="polite"><div class="toast" id="toast" hidden></div></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- Contenu ---------- */
+const THEMES=[
+  {id:"debut",name:"Commencer le cours"},
+  {id:"expliquer",name:"Expliquer et vérifier la compréhension"},
+  {id:"travail",name:"Faire travailler les élèves"},
+  {id:"gestion",name:"Gérer la classe"},
+  {id:"feedback",name:"Encourager et évaluer"},
+  {id:"stage",name:"Avec le maître de stage"},
+  {id:"collegues",name:"Avec les collègues"},
+  {id:"ecole",name:"Avec la direction, l'éducateur et les parents"}
+];
+const FOCUS={
+  a:{name:"Singulier / pluriel",hint:"Le verbe s'accorde avec son sujet : il est, ils sont."},
+  s:{name:"Le sujet",hint:"Toujours un sujet : il faut, il y a, c'est, je, nous…"},
+  r:{name:"Les articles",hint:"Jamais de nom seul : le, la, un, une, des, l'…"},
+  g:{name:"Masculin / féminin",hint:"Le genre du nom et les accords au féminin : je suis prête."}
+};
+const DATA={
+  debut:[
+    ["r","Bonjour à tous, installez-vous et sortez {vos} affaires."],
+    ["r","Ouvrez {votre} syllabus à {la} page douze."],
+    ["g","Aujourd'hui, nous allons voir {la} notion de bénéfice."],
+    ["a","Est-ce que tout le monde {a} son journal de classe ?"],
+    ["g","Notez {la} date et {le} titre dans votre cahier."],
+    ["g","Nous commençons par {une} petite révision de {la} dernière leçon."],
+    ["s","Je fais l'appel, puis {je} vous présente le programme du jour."],
+    ["a","Les téléphones {restent} dans les sacs pendant tout le cours."],
+    ["a","Les élèves absents la semaine passée {doivent} recopier la leçon."],
+    ["s","{Il} y a un changement d'horaire cette semaine."],
+    ["s","Fermez la porte, s'il vous plaît : {nous} commençons."],
+    ["a","Vos professeurs m'{ont} dit que vous étiez une classe motivée."]
+  ],
+  expliquer:[
+    ["a","Est-ce que les explications {sont} claires pour vous ?"],
+    ["s","{Il} est important de bien comprendre cette étape."],
+    ["r","Je vais vous montrer {un} exemple au tableau."],
+    ["s","Regardez bien : {c'est} ici que beaucoup d'élèves se trompent."],
+    ["g","Qui peut me rappeler {la} définition du chiffre d'affaires ?"],
+    ["s","Si vous ne comprenez pas, {il} faut le dire tout de suite."],
+    ["a","Vos questions {sont} les bienvenues : elles {aident} toute la classe."],
+    ["s","Je répète la question, car {elle} n'était pas claire."],
+    ["g","Prenez {le} temps de lire {la} consigne jusqu'au bout."],
+    ["r","Nous allons faire {le} premier exercice ensemble, étape par étape."],
+    ["a","Les entreprises {paient} des impôts sur leurs bénéfices."],
+    ["a","Une entreprise fait un bénéfice quand ses recettes {sont} {supérieures} à ses charges."],
+    ["g","Pouvez-vous reformuler {la} réponse avec vos propres mots ?"]
+  ],
+  travail:[
+    ["r","Mettez-vous par groupes de quatre et choisissez {un} porte-parole."],
+    ["r","Prenez {une} feuille et {un} stylo."],
+    ["s","Quand vous avez terminé, {vous} pouvez commencer l'exercice suivant."],
+    ["a","Les élèves qui {ont} fini {peuvent} m'apporter leur feuille."],
+    ["s","Travaillez seuls : {c'est} un exercice individuel."],
+    ["r","Comparez vos réponses avec {votre} voisin."],
+    ["s","{Il} reste cinq minutes, terminez la dernière question."],
+    ["a","Nous corrigeons ensemble : qui {veut} venir au tableau ?"],
+    ["g","Les calculatrices sont {autorisées} pour cet exercice."],
+    ["g","Écrivez {la} réponse complète, pas seulement {le} résultat."],
+    ["a","Les dossiers {sont} à rendre pour lundi prochain."],
+    ["g","Rangez vos affaires, {la} sonnerie va bientôt retentir."],
+    ["r","Soulignez {les} mots importants dans {l'}énoncé."]
+  ],
+  gestion:[
+    ["s","{Il} y a trop de bruit, je ne vous entends pas."],
+    ["r","J'attends {le} silence pour continuer."],
+    ["a","Quand quelqu'un parle, les autres {écoutent}."],
+    ["r","Levez {la} main si vous voulez parler."],
+    ["a","Les bavardages {dérangent} toute la classe."],
+    ["s","Change de place, s'il te plaît : {tu} seras mieux devant."],
+    ["g","{Ce} comportement n'est pas acceptable en classe."],
+    ["s","Je comprends que tu sois fatigué, mais {il} faut rester concentré."],
+    ["a","Les règles {sont} les mêmes pour tout le monde."],
+    ["g","Nous en reparlerons à {la} fin du cours."],
+    ["r","Si cela continue, je devrai prévenir {l'}éducateur."],
+    ["s","Merci, {c'est} beaucoup mieux comme ça."],
+    ["g","Je vous rappelle que {la} ponctualité est importante."]
+  ],
+  feedback:[
+    ["s","Très bien, {c'est} exactement ça !"],
+    ["s","Ta réponse est presque correcte : {il} manque seulement l'unité."],
+    ["r","Tu as fait {des} progrès depuis le début de l'année."],
+    ["a","Les résultats de l'interro {sont} plutôt bons."],
+    ["a","Les erreurs {font} partie de l'apprentissage."],
+    ["s","Ne t'inquiète pas, {nous} allons revoir ce point ensemble."],
+    ["g","Vous recevrez vos copies {corrigées} jeudi."],
+    ["r","{L'}interro portera sur {les} chapitres trois et quatre."],
+    ["g","Relis bien {la} question avant de répondre."],
+    ["g","Ta présentation est {soignée} et bien {organisée}."],
+    ["s","Je te félicite : {tu} as beaucoup travaillé."],
+    ["s","{Il} faut encore travailler la rédaction des réponses."],
+    ["a","Ces exercices {sont} difficiles, mais vous {pouvez} y arriver."]
+  ],
+  stage:[
+    ["g","Bonjour, je suis {la} stagiaire en économie."],
+    ["g","Est-ce que je pourrais observer {une} de vos leçons cette semaine ?"],
+    ["a","Pouvez-vous me dire où en {sont} les élèves dans la matière ?"],
+    ["g","Je vous envoie {ma} préparation de leçon ce soir."],
+    ["r","Avez-vous {des} remarques sur ma leçon d'aujourd'hui ?"],
+    ["s","Merci pour vos conseils, {ils} me sont très utiles."],
+    ["s","Je n'ai pas terminé la leçon : {il} me manquait dix minutes."],
+    ["g","La classe était plus {agitée} que d'habitude."],
+    ["s","J'ai changé l'activité, car {elle} était trop longue."],
+    ["g","Les élèves ont bien participé, je suis très {contente}."],
+    ["a","Les superviseurs {viennent} me voir la semaine prochaine."],
+    ["g","Je suis {prête} à donner ma première leçon lundi."],
+    ["g","Je suis {désolée} pour le retard, le bus était en panne."]
+  ],
+  collegues:[
+    ["r","Bonjour, je m'appelle Yuliia, je fais {un} stage en économie."],
+    ["r","Tu as une minute ? J'aurais {une} question."],
+    ["g","Est-ce que {la} photocopieuse fonctionne aujourd'hui ?"],
+    ["a","Où {sont} rangés les marqueurs pour le tableau ?"],
+    ["s","J'ai une heure de fourche, {je} vais en profiter pour corriger."],
+    ["a","Les élèves de cinquième {sont} vraiment sympathiques."],
+    ["s","{Il} fait très chaud dans ce local aujourd'hui."],
+    ["g","Tu peux me prêter un marqueur ? {Le} mien ne marche plus."],
+    ["g","On se voit à {la} réunion de midi ?"],
+    ["a","Les réunions de parents {ont} lieu en décembre, je crois."],
+    ["s","Merci pour ton aide, {c'est} très gentil."],
+    ["r","Je découvre encore {l'}école : tout est nouveau pour moi."]
+  ],
+  ecole:[
+    ["r","Bonjour Madame, je voudrais vous parler de {votre} fils."],
+    ["g","Votre fille est {sérieuse} et participe bien en classe."],
+    ["s","Lucas a des difficultés en comptabilité, mais {il} progresse."],
+    ["s","{Il} serait utile qu'il relise ses notes chaque soir."],
+    ["a","Les devoirs ne {sont} pas toujours {faits}."],
+    ["a","Deux élèves {sont} absents, je préviens l'éducateur."],
+    ["g","Est-ce que {le} local deux cent cinq est libre jeudi ?"],
+    ["s","Quand faut-{il} remettre les points pour le bulletin ?"],
+    ["g","J'ai {un} rendez-vous avec {la} directrice à quatorze heures."],
+    ["r","Pourriez-vous signer {le} journal de classe de votre enfant ?"],
+    ["r","N'hésitez pas à me contacter si vous avez {des} questions."],
+    ["a","Nous {voulons} tous la réussite de votre enfant."],
+    ["s","Merci pour cet échange, {c'était} très utile."]
+  ]
+};
+const P=[];
+THEMES.forEach(t=>DATA[t.id].forEach((x,i)=>P.push({id:t.id+"-"+(i+1),theme:t.id,focus:x[0],raw:x[1]})));
+const byId={};P.forEach(p=>{byId[p.id]=p;});
+const themeName=id=>(THEMES.find(t=>t.id===id)||{}).name||"";
+
+/* ---------- Outils ---------- */
+const $=s=>document.querySelector(s);
+const ICON={
+  play:'<svg class="ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M7 5v14l12-7z" fill="currentColor"/></svg>',
+  mic:'<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>',
+  ear:'<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg>'
+};
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function nb(s){return s.replace(/ ([?!:;])/g,"\u00A0$1");}
+function plain(p){return p.raw.replace(/[{}]/g,"");}
+function marked(p){return nb(esc(p.raw)).replace(/\{([^}]+)\}/g,(m,w)=>'<mark class="t">'+w+'</mark>');}
+function blanked(p){return nb(esc(p.raw)).replace(/\{([^}]+)\}/g,(m,w)=>'<span class="blank" style="--w:'+Math.max(2.4,w.length*.62).toFixed(2)+'em"><span class="sr">mot à retrouver</span></span>');}
+function pl(n,s,p){return n+" "+(n>1?p:s);}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function chip(p){return '<span class="chip f-'+p.focus+'"><span class="dot"></span>'+FOCUS[p.focus].name+'</span>';}
+function playBtns(id,label){return '<button class="btn primary" data-act="play" data-id="'+id+'">'+ICON.play+(label||"Écouter")+'</button><button class="btn" data-act="slow" data-id="'+id+'">Lentement</button>';}
+
+/* ---------- Mémoire locale ---------- */
+const KEY="parler-en-classe-v1";
+let store={prog:{},days:[],settings:{voiceURI:null,rate:0.9}};
+try{const raw=localStorage.getItem(KEY);if(raw){const o=JSON.parse(raw);store={prog:o.prog||{},days:o.days||[],settings:Object.assign({},store.settings,o.settings||{})};}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+function fmt(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+const today=()=>fmt(new Date());
+function gap(a,b){return Math.round((new Date(b+"T12:00:00")-new Date(a+"T12:00:00"))/864e5);}
+function status(id){const g=store.prog[id];if(!g)return "new";return g.box>=3?"ok":"prog";}
+const ST_LABEL={new:"nouvelle",prog:"en cours",ok:"maîtrisée"};
+function streakInfo(){const set=new Set(store.days);const d=new Date();const doneToday=set.has(fmt(d));if(!doneToday)d.setDate(d.getDate()-1);let n=0;while(set.has(fmt(d))){n++;d.setDate(d.getDate()-1);}return{n,doneToday};}
+function grade(id,ok){
+  const t=today();const x=store.prog[id]||{box:0,last:null,n:0};
+  if(ok){if(!(x.last===t&&x.box>0))x.box=Math.min(3,(x.box||0)+1);}else x.box=0;
+  x.last=t;x.n=(x.n||0)+1;store.prog[id]=x;save();
+}
+
+/* ---------- Synthèse vocale ---------- */
+const hasTTS=("speechSynthesis" in window)&&("SpeechSynthesisUtterance" in window);
+let voices=[],voice=null,curU=null,voicesChecked=false;
+function bestVoice(){
+  if(!voices.length)return null;
+  const score=v=>{let s=0;const l=v.lang.toLowerCase().replace("_","-");
+    if(l==="fr-fr"||l==="fr-be")s+=4;else if(l==="fr-ch")s+=3;else if(l==="fr-ca")s+=1;
+    if(/google|natural|neural|premium|enhanced|amélie|amelie|thomas|audrey|marie|denise|henri|eloise|vivienne/i.test(v.name))s+=2;
+    return s;};
+  return voices.slice().sort((a,b)=>score(b)-score(a))[0];
+}
+function loadVoices(){
+  if(!hasTTS)return;
+  voices=(speechSynthesis.getVoices()||[]).filter(v=>/^fr([-_]|$)/i.test(v.lang));
+  voice=voices.find(v=>v.voiceURI===store.settings.voiceURI)||bestVoice();
+  fillVoiceSelect();checkVoiceNote();
+}
+function fillVoiceSelect(){
+  const sel=$("#voice");if(!sel)return;
+  sel.innerHTML=voices.length?voices.map(v=>'<option value="'+esc(v.voiceURI)+'"'+(voice&&v.voiceURI===voice.voiceURI?" selected":"")+'>'+esc(v.name)+' ('+esc(v.lang)+')</option>').join(""):'<option value="">Voix par défaut de l\'appareil</option>';
+}
+function checkVoiceNote(){
+  const n=$("#voice-note");
+  if(!hasTTS){n.textContent="Ce navigateur ne sait pas lire les phrases à voix haute. Ouvre la page dans Chrome ou Safari.";n.hidden=false;return;}
+  if(voicesChecked&&!voices.length){n.textContent="Aucune voix française n'a été trouvée sur cet appareil. Si la lecture n'est pas en français, ajoute une voix française dans les réglages de synthèse vocale du téléphone (rubrique Accessibilité), puis recharge la page.";n.hidden=false;return;}
+  n.hidden=true;
+}
+function setSpeaking(on){document.body.classList.toggle("speaking",on);}
+function speak(text,rate){
+  return new Promise(resolve=>{
+    if(!hasTTS){resolve({dur:0});return;}
+    let done=false,t0=0;
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang=voice?voice.lang:"fr-FR";if(voice)u.voice=voice;
+    u.rate=rate||store.settings.rate;u.pitch=1;
+    const finish=()=>{if(done)return;done=true;clearTimeout(timer);if(curU===u){curU=null;setSpeaking(false);}resolve({dur:t0?(performance.now()-t0)/1000:0});};
+    u.onstart=()=>{t0=performance.now();};
+    u.onend=finish;u.onerror=finish;
+    const timer=setTimeout(finish,text.length*110/u.rate+6000);
+    curU=u;setSpeaking(true);
+    const go=()=>{if(done)return;if(speechSynthesis.paused)speechSynthesis.resume();speechSynthesis.speak(u);};
+    if(speechSynthesis.speaking||speechSynthesis.pending){speechSynthesis.cancel();setTimeout(go,90);}else go();
+  });
+}
+function hush(){if(hasTTS)speechSynthesis.cancel();curU=null;setSpeaking(false);}
+if(hasTTS){
+  loadVoices();
+  speechSynthesis.onvoiceschanged=loadVoices;
+  setTimeout(loadVoices,700);
+  setTimeout(()=>{voicesChecked=true;loadVoices();},2200);
+}
+
+/* ---------- Enregistrement de sa voix ---------- */
+const canRec=!!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder);
+let rec=null,recChunks=[],recURL=null,recStream=null,recTimer=null;
+function recBtns(){if(!canRec)return "";return '<button class="btn rec" data-act="rec">'+ICON.mic+'<span>M\'enregistrer</span></button><button class="btn" data-act="mine" disabled>'+ICON.ear+'<span>Ma version</span></button>';}
+function recUI(on){
+  const r=document.querySelector('#s-body [data-act="rec"]'),m=document.querySelector('#s-body [data-act="mine"]');
+  if(r){r.classList.toggle("on",on);r.querySelector("span").textContent=on?"Arrêter":"M'enregistrer";}
+  if(m)m.disabled=on||!recURL;
+}
+function stopStream(){if(recStream){recStream.getTracks().forEach(t=>t.stop());recStream=null;}}
+async function toggleRec(){
+  if(rec&&rec.state==="recording"){rec.stop();return;}
+  hush();
+  try{recStream=await navigator.mediaDevices.getUserMedia({audio:true});}
+  catch(e){toast("Le micro n'est pas accessible ici. Tu peux utiliser le dictaphone de ton téléphone.");return;}
+  recChunks=[];
+  try{rec=new MediaRecorder(recStream);}catch(e){stopStream();toast("L'enregistrement n'est pas possible dans ce navigateur.");return;}
+  rec.ondataavailable=e=>{if(e.data&&e.data.size)recChunks.push(e.data);};
+  rec.onstop=()=>{clearTimeout(recTimer);stopStream();if(recURL)URL.revokeObjectURL(recURL);recURL=URL.createObjectURL(new Blob(recChunks,{type:(rec&&rec.mimeType)||"audio/webm"}));recUI(false);};
+  rec.start();recUI(true);
+  recTimer=setTimeout(()=>{if(rec&&rec.state==="recording")rec.stop();},15000);
+}
+function stopRec(){
+  if(rec&&rec.state==="recording"){rec.onstop=null;try{rec.stop();}catch(e){}}
+  clearTimeout(recTimer);stopStream();
+  if(recURL){URL.revokeObjectURL(recURL);recURL=null;}
+  rec=null;
+}
+function playMine(){if(!recURL)return;hush();const a=new Audio(recURL);a.play().catch(()=>{});}
+
+/* ---------- Accueil ---------- */
+function renderHome(){
+  $("#h-sub").textContent=P.length+" phrases du métier d'enseignant, à écouter, répéter et dire de mémoire.";
+  const di=Math.floor(new Date(today()+"T12:00:00").getTime()/864e5)%P.length;const dp=P[di];
+  const d=$("#daily");d.className="sentence f-"+dp.focus;d.innerHTML=marked(dp);
+  $("#daily-ctrl").innerHTML=playBtns(dp.id)+chip(dp);
+  const s=streakInfo();let txt;
+  if(s.doneToday)txt="Séance faite aujourd'hui. Série : "+pl(s.n,"jour","jours")+" d'affilée.";
+  else if(s.n>0)txt="Série en cours : "+pl(s.n,"jour","jours")+". Fais ta séance aujourd'hui pour la prolonger.";
+  else txt=store.days.length?"Commence une nouvelle série aujourd'hui.":"Fais ta première séance aujourd'hui.";
+  $("#streak").textContent=txt;
+  let ok=0,pr=0;P.forEach(p=>{const st=status(p.id);if(st==="ok")ok++;else if(st==="prog")pr++;});
+  $("#totals").textContent=pl(ok,"phrase maîtrisée","phrases maîtrisées")+", "+pr+" en cours, "+(P.length-ok-pr)+" à découvrir.";
+  $("#prows").innerHTML=Object.keys(FOCUS).map(k=>{
+    const L=P.filter(p=>p.focus===k);const o=L.filter(p=>status(p.id)==="ok").length;const g=L.filter(p=>status(p.id)==="prog").length;
+    return '<div class="prow f-'+k+'"><span class="pname"><span class="dot"></span>'+FOCUS[k].name+'</span><span class="pnum">'+o+' sur '+L.length+'</span><div class="bar" role="img" aria-label="'+pl(o,"maîtrisée","maîtrisées")+', '+g+' en cours, sur '+L.length+'"><i class="m" style="width:'+(o/L.length*100)+'%"></i><i class="p" style="width:'+(g/L.length*100)+'%"></i></div><span class="phint">'+esc(FOCUS[k].hint)+'</span></div>';
+  }).join("");
+  checkVoiceNote();
+}
+
+/* ---------- Séance du jour ---------- */
+let S=null;
+function roundRobin(list){const groups=THEMES.map(t=>list.filter(p=>p.theme===t.id));const out=[];let k=0;while(out.length<list.length){const g=groups[k%groups.length];if(g.length)out.push(g.shift());k++;}return out;}
+function buildSession(n){
+  const t=today(),pick=[],g=id=>store.prog[id];
+  const add=arr=>{for(const p of arr){if(pick.length>=n)break;if(!pick.includes(p.id))pick.push(p.id);}};
+  add(shuffle(P.filter(p=>g(p.id)&&g(p.id).box===0)));
+  add(shuffle(P.filter(p=>{const x=g(p.id);if(!x||x.box===0||x.box>=3)return false;return gap(x.last,t)>=(x.box===1?1:3);})));
+  add(roundRobin(P.filter(p=>!g(p.id))));
+  add(P.filter(p=>g(p.id)&&g(p.id).box>0).sort((a,b)=>(g(a.id).last||"").localeCompare(g(b.id).last||"")));
+  return pick;
+}
+function startSession(){
+  const ids=buildSession(10);
+  S={ids,phase:1,i:0,order2:shuffle(ids.slice()),res:{},revealed:false};
+  show("session");renderSession();
+}
+function segs(){let h='<div class="segs" aria-hidden="true">';for(let k=0;k<S.ids.length;k++)h+='<span class="seg'+(k<S.i?" done":k===S.i?" cur":"")+'"></span>';return h+"</div>";}
+function sheetHTML(p,inner,extra){return '<div class="sheet"><p class="situ">'+esc(themeName(p.theme))+'</p><p class="sentence f-'+p.focus+(extra?" "+extra:"")+'">'+inner+'</p></div>';}
+function head(title){return '<div class="stephead"><h2 class="steptitle">'+title+'</h2><p class="count">Phrase '+(S.i+1)+' sur '+S.ids.length+'</p></div>'+segs();}
+function finishSession(){const t=today();if(!store.days.includes(t))store.days.push(t);if(store.days.length>400)store.days=store.days.slice(-400);save();S.phase=3;}
+function renderSession(){
+  stopRec();
+  const b=$("#s-body"),n=S.ids.length;
+  if(S.phase===1){
+    const p=byId[S.ids[S.i]];
+    b.innerHTML=head("Écouter et répéter")+sheetHTML(p,marked(p))+'<div class="meta">'+chip(p)+'</div><p class="instr">Écoute, puis répète à voix haute deux ou trois fois, au même rythme que la voix.</p><div class="controls">'+playBtns(p.id)+recBtns()+'</div><button class="btn ink block big" data-act="next1">'+(S.i+1<n?"Phrase suivante":"Passer à la mémoire")+'</button>';
+    speak(plain(p),store.settings.rate);
+  }else if(S.phase===1.5){
+    b.innerHTML='<div class="interlude"><h2 class="steptitle">Maintenant, de mémoire</h2><p>Tu vas revoir les mêmes phrases dans un autre ordre, avec des mots cachés. Dis chaque phrase en entier, à voix haute, puis vérifie.</p><p>Prends ton temps : mieux vaut parler lentement et sans faute.</p><button class="btn ink block big" data-act="go2">Commencer</button></div>';
+  }else if(S.phase===2){
+    const p=byId[S.order2[S.i]];
+    if(!S.revealed){
+      b.innerHTML=head("De mémoire")+sheetHTML(p,blanked(p))+'<div class="meta">'+chip(p)+'</div><p class="instr">Dis la phrase complète à voix haute, puis vérifie.</p><button class="btn primary block big" data-act="reveal">Vérifier</button>';
+    }else{
+      b.innerHTML=head("De mémoire")+sheetHTML(p,marked(p),"revealed")+'<div class="meta">'+chip(p)+'</div><div class="controls">'+playBtns(p.id,"Réécouter")+'</div><p class="instr">L\'as-tu dite sans faute ?</p><div class="grade"><button class="btn good" data-act="good">Oui, sans faute</button><button class="btn again" data-act="again">Non, à revoir</button></div>';
+    }
+  }else{
+    const res=S.ids.map(id=>({p:byId[id],ok:S.res[id]}));
+    const okN=res.filter(r=>r.ok).length,wrong=res.filter(r=>!r.ok);
+    const fc={};wrong.forEach(r=>{fc[r.p.focus]=(fc[r.p.focus]||0)+1;});
+    const worst=Object.keys(fc).sort((a,b)=>fc[b]-fc[a])[0];
+    const st=streakInfo().n;
+    let h='<div class="interlude"><h2 class="steptitle">Séance terminée</h2><p>Tu as dit <strong>'+okN+' '+(okN>1?"phrases":"phrase")+' sur '+n+'</strong> sans faute, de mémoire.</p>';
+    if(worst)h+='<p>Point à surveiller aujourd\'hui : </p><div class="meta">'+chip({focus:worst})+'</div><p class="small">'+esc(FOCUS[worst].hint)+'</p>';
+    h+='<p class="streak">Série : '+pl(st,"jour","jours")+' d\'affilée.</p>';
+    if(wrong.length){
+      h+='<h3>À revoir lors de la prochaine séance</h3>'+wrong.map(r=>'<div class="row"><span class="st prog"></span><p class="rsent f-'+r.p.focus+'">'+marked(r.p)+'</p><button class="icon-btn small" data-act="play" data-id="'+r.p.id+'" aria-label="Écouter la phrase">'+ICON.play+'</button></div>').join("");
+      h+='<p class="small">La prochaine séance commencera par ces phrases.</p>';
+    }else h+='<p>Aucune phrase à revoir. Bravo !</p>';
+    h+='<button class="btn ink block big" data-act="home">Retour à l\'accueil</button></div>';
+    b.innerHTML=h;
+  }
+  window.scrollTo(0,0);
+}
+
+/* ---------- Écoute en continu ---------- */
+let cList=[],cIdx=0,cTok=0,cRun=false,cTimer=null,cRes=null,wake=null,contInit=false;
+function fillThemeSelect(sel){sel.innerHTML='<option value="">Toutes les situations</option>'+THEMES.map(t=>'<option value="'+t.id+'">'+esc(t.name)+'</option>').join("");}
+function initCont(){
+  if(!contInit){fillThemeSelect($("#c-theme"));$("#c-focus").innerHTML='<option value="">Tous les points</option>'+Object.keys(FOCUS).map(k=>'<option value="'+k+'">'+FOCUS[k].name+'</option>').join("");contInit=true;}
+  cCompute();renderC();setLabel("Prête ?");$("#c-toggle").textContent="Démarrer";
+}
+function cCompute(){const t=$("#c-theme").value,f=$("#c-focus").value;cList=P.filter(p=>(!t||p.theme===t)&&(!f||p.focus===f));if(cIdx>=cList.length)cIdx=0;}
+function setLabel(t){$("#c-label").textContent=t;}
+function renderC(){
+  const p=cList[cIdx],sent=$("#c-sent");
+  if(!p){$("#c-situ").textContent="";sent.className="sentence";sent.textContent="Aucune phrase ne correspond à ces choix.";$("#c-count").textContent="";return;}
+  $("#c-situ").textContent=themeName(p.theme);
+  sent.className="sentence f-"+p.focus;
+  sent.innerHTML=$("#c-show").checked?marked(p):'<span class="masked">Texte masqué : écoute et répète.</span>';
+  $("#c-count").textContent="Phrase "+(cIdx+1)+" sur "+cList.length;
+}
+function resetBar(){const bar=$("#c-bar");bar.style.transition="none";bar.style.width="0%";}
+function cPause(sec){return new Promise(res=>{const bar=$("#c-bar");resetBar();void bar.offsetWidth;bar.style.transition="width "+sec+"s linear";bar.style.width="100%";cRes=res;cTimer=setTimeout(()=>{cRes=null;res();},sec*1000);});}
+async function reqWake(){try{if("wakeLock" in navigator)wake=await navigator.wakeLock.request("screen");}catch(e){}}
+function relWake(){try{if(wake)wake.release();}catch(e){}wake=null;}
+function cStart(){if(!cList.length)return;const tok=++cTok;cRun=true;$("#c-toggle").textContent="Pause";reqWake();cLoop(tok);}
+async function cLoop(tok){
+  const reps=parseInt($("#c-reps").value,10)||1;
+  while(cTok===tok){
+    const p=cList[cIdx];renderC();
+    for(let r=0;r<reps;r++){
+      setLabel("Écoute");resetBar();
+      const res=await speak(plain(p),store.settings.rate);if(cTok!==tok)return;
+      const dur=res.dur>0.6?res.dur:plain(p).length*0.075;
+      setLabel("À toi : répète la phrase");
+      await cPause(dur*1.3+1.2);if(cTok!==tok)return;
+    }
+    cIdx=(cIdx+1)%cList.length;
+  }
+}
+function cStop(){
+  cTok++;const was=cRun;cRun=false;clearTimeout(cTimer);
+  if(cRes){const r=cRes;cRes=null;r();}
+  hush();resetBar();relWake();
+  if(was){setLabel("En pause");$("#c-toggle").textContent="Reprendre";}
+}
+function cMove(d){if(!cList.length)return;const was=cRun;cStop();cIdx=(cIdx+d+cList.length)%cList.length;renderC();if(was)cStart();else speak(plain(cList[cIdx]),store.settings.rate);}
+
+/* ---------- Liste ---------- */
+let lFocus="",listInit=false;
+function renderList(){
+  if(!listInit){fillThemeSelect($("#l-theme"));listInit=true;}
+  const t=$("#l-theme").value;
+  $("#l-focus").innerHTML=[["","Tous"]].concat(Object.keys(FOCUS).map(k=>[k,FOCUS[k].name])).map(([k,nm])=>'<button class="fchip'+(k?" f-"+k:"")+'" data-act="lf" data-f="'+k+'" aria-pressed="'+(lFocus===k)+'">'+(k?'<span class="dot"></span>':'')+nm+'</button>').join("");
+  let h="";
+  THEMES.forEach(th=>{
+    if(t&&th.id!==t)return;
+    const L=P.filter(p=>p.theme===th.id&&(!lFocus||p.focus===lFocus));if(!L.length)return;
+    h+='<h3>'+esc(th.name)+'</h3>'+L.map(p=>{const st=status(p.id);return '<div class="row"><span class="st '+st+'" title="'+ST_LABEL[st]+'"><span class="sr">'+ST_LABEL[st]+'</span></span><p class="rsent f-'+p.focus+'">'+marked(p)+'</p><button class="icon-btn small" data-act="play" data-id="'+p.id+'" aria-label="Écouter la phrase">'+ICON.play+'</button></div>';}).join("");
+  });
+  $("#l-rows").innerHTML=h||'<p class="small">Aucune phrase ne correspond à ces choix.</p>';
+}
+
+/* ---------- Réglages ---------- */
+function fmtRate(x){return String(Math.round(x*100)/100).replace(".",",")+" ×";}
+function renderSettings(){fillVoiceSelect();$("#rate").value=store.settings.rate;$("#rate-val").textContent=fmtRate(store.settings.rate);}
+let resetArm=null;
+function doReset(b){
+  if(!resetArm){b.textContent="Confirmer : tout effacer";b.classList.add("armed");resetArm=setTimeout(()=>{resetArm=null;b.textContent="Remettre la progression à zéro";b.classList.remove("armed");},4000);return;}
+  clearTimeout(resetArm);resetArm=null;store.prog={};store.days=[];save();
+  b.textContent="Remettre la progression à zéro";b.classList.remove("armed");toast("La progression a été remise à zéro.");
+}
+let toastT=null;
+function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>{t.hidden=true;},4500);}
+
+/* ---------- Navigation ---------- */
+const VIEWS=["home","session","cont","list","settings"];let curView="home";
+function show(v){
+  if(curView==="cont"&&v!=="cont")cStop();
+  if(v!=="session")stopRec();
+  hush();curView=v;
+  VIEWS.forEach(k=>$("#v-"+k).classList.toggle("active",k===v));
+  if(v==="home")renderHome();
+  if(v==="cont")initCont();
+  if(v==="list")renderList();
+  if(v==="settings")renderSettings();
+  window.scrollTo(0,0);
+}
+
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-act]");if(!b||b.disabled)return;
+  const a=b.dataset.act,id=b.dataset.id;
+  switch(a){
+    case "play":if(byId[id])speak(plain(byId[id]),store.settings.rate);break;
+    case "slow":if(byId[id])speak(plain(byId[id]),Math.max(0.5,store.settings.rate*0.72));break;
+    case "start":startSession();break;
+    case "home":show("home");break;
+    case "cont":show("cont");break;
+    case "list":show("list");break;
+    case "settings":show("settings");break;
+    case "rec":toggleRec();break;
+    case "mine":playMine();break;
+    case "next1":S.i++;if(S.i>=S.ids.length){S.phase=1.5;S.i=0;hush();}renderSession();break;
+    case "go2":S.phase=2;S.i=0;S.revealed=false;renderSession();break;
+    case "reveal":S.revealed=true;renderSession();speak(plain(byId[S.order2[S.i]]),store.settings.rate);break;
+    case "good":case "again":{const pid=S.order2[S.i];const ok=a==="good";S.res[pid]=ok;grade(pid,ok);S.i++;S.revealed=false;hush();if(S.i>=S.order2.length)finishSession();renderSession();break;}
+    case "c-toggle":if(cRun)cStop();else cStart();break;
+    case "c-next":cMove(1);break;
+    case "c-prev":cMove(-1);break;
+    case "lf":lFocus=b.dataset.f||"";renderList();break;
+    case "test":speak("Bonjour, voici la voix qui lira les phrases.",store.settings.rate);break;
+    case "reset":doReset(b);break;
+  }
+});
+document.addEventListener("change",e=>{
+  const id=e.target.id;
+  if(id==="voice"){voice=voices.find(v=>v.voiceURI===e.target.value)||null;store.settings.voiceURI=voice?voice.voiceURI:null;save();}
+  else if(id==="c-theme"||id==="c-focus"){cStop();cIdx=0;cCompute();renderC();setLabel("Prête ?");$("#c-toggle").textContent="Démarrer";}
+  else if(id==="c-reps"){if(cRun){cStop();cStart();}}
+  else if(id==="c-show"){renderC();}
+  else if(id==="l-theme"){renderList();}
+});
+document.addEventListener("input",e=>{
+  if(e.target.id==="rate"){store.settings.rate=parseFloat(e.target.value)||0.9;$("#rate-val").textContent=fmtRate(store.settings.rate);save();}
+});
+
+renderHome();
+})();
+</script>
+</body>
+</html>
